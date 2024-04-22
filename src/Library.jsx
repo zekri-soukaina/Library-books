@@ -1,10 +1,17 @@
 import { useState } from "react";
 import { collection } from "./collection";
+
 import { Books } from "./Books";
-import "./App.css";
+import { Category } from "./Category";
+import { Book } from "./Book";
 
 export default () => {
   const [books, setBooks] = useState(collection.books);
+
+  // Filter books with "Programming" in thier categoryu attribute
+  const programmingBooks = books.filter(
+    (book) => book.category === "programming"
+  );
 
   const borrowBook = (id) => {
     setBooks((prevBooks) =>
@@ -45,7 +52,18 @@ export default () => {
   return (
     <div className="App">
       <h1>Library</h1>
-      <Books books={books} borrowBook={borrowBook} returnBook={returnBook} />
+      <Books amount={books.length}>
+        <Category title="Programming" amount={programmingBooks.length}>
+          {programmingBooks.map((book) => (
+            <Book
+              book={book}
+              key={book.id}
+              borrowBook={borrowBook}
+              returnBook={returnBook}
+            />
+          ))}
+        </Category>
+      </Books>
     </div>
   );
 };

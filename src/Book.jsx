@@ -1,5 +1,4 @@
 import "./Book.css";
-import "./App.css";
 
 export const Book = ({ book, borrowBook, returnBook }) => {
   return (
